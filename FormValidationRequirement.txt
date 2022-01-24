@@ -1,0 +1,26 @@
+1.Create a Registration form.
+      input fields - Firstname,Lastname,Date of birth ,Email,Phone 
+2.Two buttons - submit ,clear
+3.Name validation : includes firstname,lastname
+        should contain only alphabets
+        no special chars or any other numbers
+        should not contain consecutive repeating letters more than 3
+4.Phone number :
+        contain only 10 digits
+        no special chars or alpha chars
+        starts with 6/7/8/9
+5.Email :
+        username,domain name same as name validation
+        username minimum length = 3
+        domain min length = 5
+        user name should starts with alphabets followed by digits if any and domain name should be in lowercase letters
+6.Date of birth :
+        dd/mm/yyyy format
+        should not be future date
+7.Having a class with object defined and methods
+8.Seperate method will be defined for name (alpha) validation
+9.Seperate methods for numbers,emails and date of birth
+10.Using addeventlistener - once the submit event occurs ,the validate method get triggered to check the errors and the error messages
+are displayed in the screen.
+11.Once the form is completely validated and the values entered are in correct format then the form is submitted and the values entered
+are cleared.
