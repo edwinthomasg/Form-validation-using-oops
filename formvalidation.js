@@ -56,26 +56,45 @@ class Registration{
             this.removeErrorMessage(0);
             this.user.alphabetError = "";
         }
-            
-
+        // if(this.user.lastname == ""){
+        //         this.user.alphabetError = "Lastname required";
+        //         this.displayErrorMessage(1,this.user.alphabetError);
+        //     }
+        //     else if(this.alphaRegex.test(this.user.lastname) == false){
+        //         this.user.alphabetError = "Should contain only alphabets";
+        //         this.displayErrorMessage(1,this.user.alphabetError);
+        //     }
+        //     else if(this.user.lastname.length > 2)
+        //     {
+        //         this.user.alphabetError = "Should not exceed 2 letters";
+        //         this.displayErrorMessage(1,this.user.alphabetError);
+        //     }
+        //     else 
+        //     { 
+        //         this.removeErrorMessage(1);
+        //         this.user.alphabetError = "";
+        //     }
+    }
+    validateLastName(){
+        
         if(this.user.lastname == ""){
-                this.user.alphabetError = "Lastname required";
-                this.displayErrorMessage(1,this.user.alphabetError);
-            }
-            else if(this.alphaRegex.test(this.user.lastname) == false){
-                this.user.alphabetError = "Should contain only alphabets";
-                this.displayErrorMessage(1,this.user.alphabetError);
-            }
-            else if(this.user.lastname.length > 2)
-            {
-                this.user.alphabetError = "Should not exceed 2 letters";
-                this.displayErrorMessage(1,this.user.alphabetError);
-            }
-            else 
-            { 
-                this.removeErrorMessage(1);
-                this.user.alphabetError = "";
-            }
+            this.user.alphabetError = "Lastname required";
+            this.displayErrorMessage(1,this.user.alphabetError);
+        }
+        else if(this.alphaRegex.test(this.user.lastname) == false){
+            this.user.alphabetError = "Should contain only alphabets";
+            this.displayErrorMessage(1,this.user.alphabetError);
+        }
+        else if(this.user.lastname.length > 2)
+        {
+            this.user.alphabetError = "Should not exceed 2 letters";
+            this.displayErrorMessage(1,this.user.alphabetError);
+        }
+        else 
+        { 
+            this.removeErrorMessage(1);
+            this.user.alphabetError = "";
+        }
     }
     validateBirthDate(){
         const current = new Date();
@@ -88,7 +107,7 @@ class Registration{
             this.displayErrorMessage(2,this.user.dateError);
          }
          else if(this.dateRegex.test(this.user.birthdate) == false){
-            this.user.dateError = "Invalid date format(dd-mm-yyyy)";
+            this.user.dateError = "Invalid date format(yyyy-mm-dd)";
             this.displayErrorMessage(2,this.user.dateError);
          }
          else if(age < 20){
@@ -155,24 +174,108 @@ class Registration{
         let result = true;
         Array.from(form_group).forEach(element => {
             if(element.classList.contains("invalid"))
-            result = false;
+            {
+                console.log("yes")
+                result = false;}
         });
+        console.log(this.alphabetError,
+        this.phonenumberError,
+        this.emailError,
+        this.dateError)
         return result;
     }
     
 }
 const entry = new Registration();
-
-document.getElementsByClassName("form")[0].addEventListener('submit',event => {
+// document.getElementsByClassName("form")[0].addEventListener('mouseover',()=>{
+//     console.log("form hovered")
+//     entry.getUserInputs();
+// })
+document.getElementById("firstname").addEventListener('input',()=>{
     entry.getUserInputs();
     entry.validateAlphabets();
+    entry.clearValues();
+    if(entry.checkFormValid() == false)
+    {
+        console.log("Failed")
+        event.preventDefault();}
+    else
+    {
+        console.log("Success")
+        document.getElementsByClassName('form')[0].submit();}
+    }
+)
+document.getElementById("lastname").addEventListener('input',()=>{
+    entry.getUserInputs();
+    entry.validateLastName();
+    entry.clearValues();
+    if(entry.checkFormValid() == false)
+    {
+        console.log("Failed")
+        event.preventDefault();}
+    else
+    {
+        console.log("Success")
+        document.getElementsByClassName('form')[0].submit();}
+    }
+)
+document.getElementById("birthdate").addEventListener('input',()=>{
+    entry.getUserInputs();
     entry.validateBirthDate();
+    entry.clearValues();
+    if(entry.checkFormValid() == false)
+    {
+        console.log("Failed")
+        event.preventDefault();}
+    else
+    {
+        console.log("Success")
+        document.getElementsByClassName('form')[0].submit();}
+    }
+)
+document.getElementById("phonenumber").addEventListener('input',()=>{
+    entry.getUserInputs();
     entry.validatePhoneNumber();
+    entry.clearValues();
+    if(entry.checkFormValid() == false)
+    {
+        console.log("Failed")
+        event.preventDefault();}
+    else
+    {
+        console.log("Success")
+        document.getElementsByClassName('form')[0].submit();}
+    }
+)
+document.getElementById("email").addEventListener('input',()=>{
+    entry.getUserInputs();
     entry.validateEmail();
     entry.clearValues();
     if(entry.checkFormValid() == false)
-    event.preventDefault();
+    {
+        console.log("Failed")
+        event.preventDefault();}
     else
-    document.getElementsByClassName('form')[0].submit();
+    {
+        console.log("Success")
+        document.getElementsByClassName('form')[0].submit();}
+    }
+)
+document.getElementsByClassName("form")[0].addEventListener('submit',event => {
+    
+    // entry.validateAlphabets();
+    // entry.validateBirthDate();
+    // entry.validatePhoneNumber();
+    // entry.validateEmail();
+    console.log("Form submit")
+    entry.clearValues();
+    if(entry.checkFormValid() == false)
+    {
+        console.log("Failed")
+        event.preventDefault();}
+    else
+    {
+        console.log("Success")
+        document.getElementsByClassName('form')[0].submit();}
     
 })
