@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    <form action="">
+        <label for="">Email</label>
+        <input type="email" name="" id="email"><br><br>
+        <label for="">Password</label>
+        <input type="password" name="" id="pass"><br><br>
+        <input type="button" id="reg-btn" value="Register"><br><br>
+        <a href="home.html">Home</a>
+        <script>
+            document.getElementById("reg-btn").addEventListener('click',()=>{
+                const em = document.getElementById("email").value
+                const ps = document.getElementById("pass").value
+                localStorage.setItem('email',em)
+                localStorage.setItem('password',ps)
+                console.log("Succesfully registered")
+            })
+        </script>
+    </form>
+</body>
+</html>
