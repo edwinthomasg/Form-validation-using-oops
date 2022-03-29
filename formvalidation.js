@@ -23,17 +23,17 @@ class Registration{
     //   this.user.email = document.getElementById("email").value.trim();
    }
    getUserLInputs(){
-    this.user.lastname = document.getElementById("lastname").value.trim();
+        this.user.lastname = document.getElementById("lastname").value.trim();
     }
     getUserBInputs(){
         this.user.birthdate = document.getElementById("birthdate").value.trim();
-        }
-        getUserPInputs(){
-            this.user.phonenumber = document.getElementById("phonenumber").value.trim();
-            }
-            getUserEInputs(){
-                this.user.email = document.getElementById("email").value.trim();
-                }
+    }
+    getUserPInputs(){
+        this.user.phonenumber = document.getElementById("phonenumber").value.trim();
+    }
+    getUserEInputs(){
+        this.user.email = document.getElementById("email").value.trim();
+    }
    displayErrorMessage(index,message){
       const form_group = document.getElementsByClassName("form-group")[index];
       form_group.classList.add("invalid");
@@ -153,7 +153,6 @@ class Registration{
        {
            alert("Successfully registered");
            const group = document.getElementsByClassName("form-group");
-           console.log(typeof(group));
            Array.from(group).forEach(element => {
                element.getElementsByTagName("input")[0].value = "";
                element.classList.remove("valid");
@@ -166,14 +165,12 @@ class Registration{
        Array.from(form_group).forEach(element => {
            if(element.classList.contains("invalid"))
            result = false;
-           else
-           console.log("valid")
        });
        if(this.user.alphabetError === "" && this.user.phonenumberError === "" && this.user.emailError === "" && this.user.dateError === "")
        {
            result = true
        } 
-       console.log("Errors : "+this.user.alphabetError,this.user.phonenumberError,this.user.emailError,this.user.dateError)
+    //    console.log("Errors : "+this.user.alphabetError+this.user.phonenumberError+this.user.emailError+this.user.dateError)
        return result;
    }
    
@@ -184,39 +181,38 @@ document.getElementById("firstname").addEventListener('keyup',()=>{
     entry.validateAlphabets();
 })
 document.getElementById("lastname").addEventListener('keyup',()=>{
-    console.log("triggered")
     entry.getUserLInputs()
     entry.validateAlphabets();
 })
 document.getElementById("birthdate").addEventListener('keyup',()=>{
-    console.log("triggered")
     entry.getUserBInputs()
     entry.validateBirthDate();
 })
 document.getElementById("phonenumber").addEventListener('keyup',()=>{
-    console.log("triggered")
     entry.getUserPInputs()
     entry.validatePhoneNumber();
 })
 document.getElementById("email").addEventListener('keyup',()=>{
-    console.log("triggered")
     entry.getUserEInputs()
     entry.validatePhoneNumber();
 })
 
 document.getElementsByClassName("form")[0].addEventListener('submit',event => {
-//    entry.getUserInputs();
-//    entry.validateAlphabets();
-//    entry.validateBirthDate();
-//    entry.validatePhoneNumber();
-//    entry.validateEmail();
-//    entry.clearValues();
-event.preventDefault()
-   if(entry.checkFormValid() == false)
-   {
+    entry.getUserFInputs()
+    entry.getUserLInputs()
+    entry.getUserBInputs()
+    entry.getUserPInputs()
+    entry.getUserEInputs()
+    entry.validateAlphabets();
+    entry.validateBirthDate();
+    entry.validatePhoneNumber();
+    entry.validateEmail();
+    entry.clearValues();
+    if(entry.checkFormValid() == false)
+    {
        event.preventDefault();
     }
-   else
-   document.getElementById('form-1').submit();
+    else
+    document.getElementById('form-1').submit();
    
 })
