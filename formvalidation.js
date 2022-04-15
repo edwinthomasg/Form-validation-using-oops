@@ -10,7 +10,8 @@ class Registration{
       birthdate: "",
       phonenumber: "",
       email: "",
-      alphabetError: "",
+      firstnameError: "",
+      lastnameError: "",
       phonenumberError:"",
       emailError:"",
       dateError:""
@@ -44,48 +45,50 @@ class Registration{
        form_group.classList.remove("invalid");
        form_group.classList.add("valid");
    }
-   validateAlphabets(){
+   validateFirstname(){
        if(this.user.firstname == ""){
-           this.user.alphabetError = "Firstname required";
-           this.displayErrorMessage(0,this.user.alphabetError);
+           this.user.firstnameError = "Firstname required";
+           this.displayErrorMessage(0,this.user.firstnameError);
        }
        else if(this.alphaRegex.test(this.user.firstname) == false){
-           this.user.alphabetError = "Should contain only alphabets";
-           this.displayErrorMessage(0,this.user.alphabetError);
+           this.user.firstnameError = "Should contain only alphabets";
+           this.displayErrorMessage(0,this.user.firstnameError);
        }
        else if(this.user.firstname.length < 3)
        {
-           this.user.alphabetError = "Should contain atleast 3 letters";
-           this.displayErrorMessage(0,this.user.alphabetError);
+           this.user.firstnameError = "Should contain atleast 3 letters";
+           this.displayErrorMessage(0,this.user.firstnameError);
        }
        else if(this.user.firstname.length > 15)
        {
-           this.user.alphabetError = "Should not exceed 15 letters";
-           this.displayErrorMessage(0,this.user.alphabetError);
+           this.user.firstnameError = "Should not exceed 15 letters";
+           this.displayErrorMessage(0,this.user.firstnameError);
        }
        else 
        {
            this.removeErrorMessage(0);
-           this.user.alphabetError = "";
+           this.user.firstnameError = "";
        }
-       if(this.user.lastname == ""){
-               this.user.alphabetError = "Lastname required";
-               this.displayErrorMessage(1,this.user.alphabetError);
-           }
-           else if(this.alphaRegex.test(this.user.lastname) == false){
-               this.user.alphabetError = "Should contain only alphabets";
-               this.displayErrorMessage(1,this.user.alphabetError);
-           }
-           else if(this.user.lastname.length > 2)
-           {
-               this.user.alphabetError = "Should not exceed 2 letters";
-               this.displayErrorMessage(1,this.user.alphabetError);
-           }
-           else 
-           { 
-               this.removeErrorMessage(1);
-               this.user.alphabetError = "";
-           }
+   }
+   validateLastname(){
+    if(this.user.lastname == ""){
+        this.user.lastnameError = "Lastname required";
+        this.displayErrorMessage(1,this.user.lastnameError);
+    }
+    else if(this.alphaRegex.test(this.user.lastname) == false){
+        this.user.lastnameError = "Should contain only alphabets";
+        this.displayErrorMessage(1,this.user.lastnameError);
+    }
+    else if(this.user.lastname.length > 2)
+    {
+        this.user.lastnameError = "Should not exceed 2 letters";
+        this.displayErrorMessage(1,this.user.lastnameError);
+    }
+    else 
+    { 
+        this.removeErrorMessage(1);
+        this.user.lastnameError = "";
+    }
    }
    validateBirthDate(){
        const current = new Date();
@@ -147,18 +150,18 @@ class Registration{
                this.user.emailError = "";
            }
    }
-   clearValues(){
+//    clearValues(){
    
-       if(this.user.alphabetError === "" && this.user.phonenumberError === "" && this.user.emailError === "" && this.user.dateError === "")
-       {
-           alert("Successfully registered");
-           const group = document.getElementsByClassName("form-group");
-           Array.from(group).forEach(element => {
-               element.getElementsByTagName("input")[0].value = "";
-               element.classList.remove("valid");
-           });
-       } 
-   }
+//        if(this.user.alphabetError === "" && this.user.phonenumberError === "" && this.user.emailError === "" && this.user.dateError === "")
+//        {
+//            alert("Successfully registered");
+//            const group = document.getElementsByClassName("form-group");
+//            Array.from(group).forEach(element => {
+//                element.getElementsByTagName("input")[0].value = "";
+//                element.classList.remove("valid");
+//            });
+//        } 
+//    }
    checkFormValid(){
        const form_group = document.getElementsByClassName("form-group");
        let result = true;
@@ -166,11 +169,6 @@ class Registration{
            if(element.classList.contains("invalid"))
            result = false;
        });
-       if(this.user.alphabetError === "" && this.user.phonenumberError === "" && this.user.emailError === "" && this.user.dateError === "")
-       {
-           result = true
-       } 
-    //    console.log("Errors : "+this.user.alphabetError+this.user.phonenumberError+this.user.emailError+this.user.dateError)
        return result;
    }
    
@@ -178,11 +176,11 @@ class Registration{
 const entry = new Registration();
 document.getElementById("firstname").addEventListener('keyup',()=>{
     entry.getUserFInputs()
-    entry.validateAlphabets();
+    entry.validateFirstname();
 })
 document.getElementById("lastname").addEventListener('keyup',()=>{
     entry.getUserLInputs()
-    entry.validateAlphabets();
+    entry.validateLastname();
 })
 document.getElementById("birthdate").addEventListener('keyup',()=>{
     entry.getUserBInputs()
@@ -194,7 +192,7 @@ document.getElementById("phonenumber").addEventListener('keyup',()=>{
 })
 document.getElementById("email").addEventListener('keyup',()=>{
     entry.getUserEInputs()
-    entry.validatePhoneNumber();
+    entry.validateEmail();
 })
 
 document.getElementsByClassName("form")[0].addEventListener('submit',event => {
@@ -203,16 +201,15 @@ document.getElementsByClassName("form")[0].addEventListener('submit',event => {
     entry.getUserBInputs()
     entry.getUserPInputs()
     entry.getUserEInputs()
-    entry.validateAlphabets();
-    entry.validateBirthDate();
-    entry.validatePhoneNumber();
-    entry.validateEmail();
-    entry.clearValues();
+    entry.validateFirstname()
+    entry.validateLastname()
+    entry.validateBirthDate()
+    entry.validatePhoneNumber()
+    entry.validateEmail()
+    // entry.clearValues()
     if(entry.checkFormValid() == false)
-    {
-       event.preventDefault();
-    }
+       event.preventDefault()
     else
-    document.getElementById('form-1').submit();
+    document.getElementById('form-1').submit()
    
 })

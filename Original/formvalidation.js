@@ -141,7 +141,6 @@ class Registration{
         {
             alert("Successfully registered");
             const group = document.getElementsByClassName("form-group");
-            console.log(typeof(group));
             Array.from(group).forEach(element => {
                 element.getElementsByTagName("input")[0].value = "";
                 element.classList.remove("valid");
